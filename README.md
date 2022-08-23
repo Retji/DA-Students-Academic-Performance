@@ -1,8 +1,8 @@
 # Project Name: DA-Students-Academic-Performance
 ----
 
-#Project Objective: This project  was a done with a view to find potential trends using SQL joins to create a single reporting table called academic_info from four data files namely county_info,student_academic_info,
-student_family_details, and student_personal_detail.
+#Project Objective: This project  was a done with a view to find potential trends from four sets of  using SQL joins to create a single reporting table called academic_info. The four data files are named county_info,student_academic_info,
+student_family_details, and student_personal_detail respectively.
 ----
 
 #Data Sourcing: The dataset used for this project was obtained from entrylevel.net. 
