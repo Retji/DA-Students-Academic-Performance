@@ -12,4 +12,16 @@
 # Findings and Recommendation:
 
 
+----
+Definition of some columns:
+1. Gender: factor indicating gender
+2. academic_score: studentsa academic score throughout high school and college
+3. student_tuition: cost of tuition for the student
+4. education: the years of education the student has received
+5. mcollege: factor is the mother a college graduate
+6. fcollege: factor is the father a college graduate
+7. income: high or low income based on a country average
+
+
+
 
