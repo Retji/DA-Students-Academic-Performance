@@ -10,16 +10,16 @@
  
   -- Returning all the columns in each of the tables-- 
  
- select		* from student_personal_details;
- select		* from student_family_details;
- select		* from county_info;
- select		* from student_academic_info;
+ select	* from student_personal_details;
+ select	* from student_family_details;
+ select	* from county_info;
+ select	* from student_academic_info;
  
 
 
 -- Query 1: This query is to obtain a count of the number students and group them by gender from only the student_personal_details file without taking note of repetition-- 
 select 	gender,
-		count(*) as gender_count
+	count(*) as gender_count
 from	student_personal_details
 group 	by  gender;
 
@@ -29,14 +29,14 @@ group 	by  gender;
 -- the average passmark is 50 hence a class average score of below 50 is regarded as generally failed-- 
 
 select 	education,
-		round(avg(academic_score),2) as average_score,
-		round(avg(student_tuition),2) as average_tuition,
-		round(avg(wage),2) as average_wage,
+	round(avg(academic_score),2) as average_score,
+	round(avg(student_tuition),2) as average_tuition,
+	round(avg(wage),2) as average_wage,
 case
-		when avg(academic_score)>50 then "pass"
-		else	"fail" 
+	when avg(academic_score)>50 then "pass"
+	else	"fail" 
 end 
-as 		remark
+as 	remark
 from 		student_academic_info
 	inner 	join student_personal_details
 			using	(id)
@@ -50,7 +50,7 @@ from 		student_academic_info
 
  -- Query 3: Joining all four tables to create a single table by full join of all ids including county_info id--  
 create table	academic_info as(
-				select *,
+			select *,
 				case
 					when 	avg(academic_score)>50 then "pass"
 					else	"fail" 
@@ -68,7 +68,7 @@ create table	academic_info as(
 			
 -- Query 4: View each candidate and whether the candidate has passed or fail--  
 select 	id,
-		round(academic_score,2) as academic_score,
+	round(academic_score,2) as academic_score,
         education,
         student_tuition,
         fcollege,
@@ -87,21 +87,20 @@ group 	by education
 order 	by education;
 
         
-	-- Query 6: This query gives a summary students who have pass and students that have failed by partitioning them--
+-- Query 6: This query gives a summary students who have pass and students that have failed by partitioning them--
 	
 select	education,
-		gender,
-		remark,
-		count(*) over (partition by education,remark order by education) as number_of_students
+	gender,
+	remark,
+	count(*) over (partition by education,remark order by education) as number_of_students
 from 	academic_info;
 
 
 
 
 -- Query 7: Grouping of classes by colleges,income,distance
-select * from academic_info;  
 select	education,
-		remark,
+	remark,
         gender,
         fcollege,
         mcollege,
@@ -111,13 +110,13 @@ select	education,
         wage,
         distance,
         ethnicity,
-		count(*) as number_of_students
+	count(*) as number_of_students
 from 	academic_info
 group 	by education,remark,gender,fcollege,mcollege,urban,income,unemp,wage,distance,ethnicity;
 
 -- Querry 7b: partioning instead of group by--  
 select	education,
-		remark,
+	remark,
         gender,
         fcollege,
         mcollege,
@@ -127,6 +126,5 @@ select	education,
         wage,
         distance,
         ethnicity,
-		count(*) 
-over 	(partition by education,remark,gender,fcollege,mcollege,urban,income,unemp,wage,distance,ethnicity order by education) as number_of_students
+	count(*) over 	(partition by education,remark,gender,fcollege,mcollege,urban,income,unemp,wage,distance,ethnicity order by education) as number_of_students
 from 	academic_info;
